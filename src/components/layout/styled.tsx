@@ -1,7 +1,7 @@
 import { Layout, Menu, Button } from 'antd';
 import styled from 'styled-components';
 
-const { Header } = Layout;
+const { Header, Content, Footer } = Layout;
 
 export const StyledHeader = styled(Header)`
   background: ${(props) => props.theme.colors.primary.main};
@@ -38,6 +38,34 @@ export const StyledMenu = styled(Menu)`
 
   .ant-menu-item::after {
     display: none !important;
+  }
+`;
+
+export const StyledContent = styled(Content)`
+  padding: 16px 0;
+`;
+
+export const StyledFooter = styled(Footer)`
+  background: ${(props) => props.theme.colors.primary.main};
+  color: white;
+  padding: 0;
+  padding-top: 50px;
+  padding-bottom: 50px;
+
+  .logo {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .info {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 10px;
+    color: #d8d8d8;
+
+    p {
+      margin: 0;
+    }
   }
 `;
 

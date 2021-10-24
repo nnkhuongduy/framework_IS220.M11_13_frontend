@@ -1,18 +1,16 @@
 import { FC } from 'react';
 import { Layout as AntdLayout } from 'antd';
 
+import { StyledContent } from './styled';
 import { Header } from './header';
-
-const { Content, Footer } = AntdLayout;
+import { Footer } from './footer';
 
 export const Layout: FC = ({ children }) => {
   return (
     <AntdLayout>
       <Header />
-      <Content className="page-layout-spacing">{children}</Content>
-      <Footer>
-        <div className="page-layout-spacing">Footer</div>
-      </Footer>
+      <StyledContent className="page-layout-spacing">{children}</StyledContent>
+      <Footer />
     </AntdLayout>
   );
 };
