@@ -15,6 +15,7 @@ declare module 'styled-components' {
       md: number;
       sm: number;
       xs: number;
+      xxs: number;
     };
 
     colors: {

@@ -14,6 +14,7 @@ export const theme: DefaultTheme = {
     md: 992,
     sm: 768,
     xs: 576,
+    xxs: 375,
   },
   colors: {
     primary: {
