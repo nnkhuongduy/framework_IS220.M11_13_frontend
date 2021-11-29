@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+import { SUPPLY_CONSTANTS } from 'src/constants/supply';
 import { RootState } from './store';
 
 export const _99phantramApi = createApi({
@@ -16,5 +17,6 @@ export const _99phantramApi = createApi({
       return headers;
     },
   }),
-  endpoints: () => ({})
+  endpoints: () => ({}),
+  tagTypes: [SUPPLY_CONSTANTS.SUPPLY_CACHE_ID],
 });

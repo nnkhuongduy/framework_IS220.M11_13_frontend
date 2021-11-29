@@ -1,16 +1,19 @@
 import { FC } from 'react';
-import { Button, Col } from 'antd';
 import { useMediaQuery } from 'react-responsive';
+import { Button, Col, Skeleton } from 'antd';
 
-import { Post } from 'src/models/post';
+import { Supply } from 'src/models/supply';
+import { SupplyCard } from '../supply/card';
 import { theme } from 'src/theme';
-import { PostItem, PostMain } from './styled';
+
+import { PostMain } from './styled';
 
 interface PostListingProps {
-  posts: Post[];
+  supplies: Supply[];
+  loading: boolean;
 }
 
-export const PostListing: FC<PostListingProps> = ({ posts }) => {
+export const PostListing: FC<PostListingProps> = ({ supplies, loading }) => {
   const isMedium = useMediaQuery({
     query: `(max-width: ${theme.breakpoints.md}px)`,
   });
@@ -24,30 +27,41 @@ export const PostListing: FC<PostListingProps> = ({ posts }) => {
     query: `(max-width: ${theme.breakpoints.xxs}px)`,
   });
 
+  if (loading) {
+    return (
+      <PostMain gutter={[16, 16]}>
+        {[...Array(6).keys()].map((key) => (
+          <Col
+            key={key}
+            span={
+              isXXsSmall ? 24 : isXsSmall ? 12 : isSmall ? 8 : isMedium ? 6 : 4
+            }
+          >
+            <Skeleton.Image />
+            <Skeleton active />
+          </Col>
+        ))}
+      </PostMain>
+    );
+  }
+
   return (
     <PostMain gutter={[16, 16]}>
-      {posts.map(({ images, name, price, locations }, index) => (
-        <PostItem
-          key={index}
+      {supplies.map((supply) => (
+        <Col
+          key={supply.id}
           span={
             isXXsSmall ? 24 : isXsSmall ? 12 : isSmall ? 8 : isMedium ? 6 : 4
           }
         >
-          <img
-            src={images[0]}
-            alt={name}
-            height="220px"
-            width="100%"
-            style={{ objectFit: 'cover' }}
-          />
-          <h4>{name}</h4>
-          <p className="price">{price.toLocaleString()} VNĐ</p>
-          <p className="location">{locations[0].name}</p>
-        </PostItem>
+          <SupplyCard supply={supply} />
+        </Col>
       ))}
-      <Col span={24}>
-        <Button type="default">Xem thêm</Button>
-      </Col>
+      {supplies.length % 20 === 0 ? (
+        <Col span={24}>
+          <Button type="default">Xem thêm</Button>
+        </Col>
+      ) : null}
     </PostMain>
   );
 };

@@ -4,6 +4,7 @@ import { CategoriesCarousel } from 'src/components/categories-carousel/categorie
 import { Keywords } from 'src/components/keywords/keywords';
 import { PostListing } from 'src/components/post-listing/post-listing';
 import { useGetPrimaryCategoriesQuery } from 'src/services/category';
+import { useGetSuppliesQuery } from 'src/services/supply';
 
 import { MOCK_KEYWORDS } from './mock_data';
 import { StyledCol } from './styled';
@@ -11,6 +12,9 @@ import { StyledCol } from './styled';
 export const HomePage = () => {
   const { data: categories, isLoading: isLoadingCategories } =
     useGetPrimaryCategoriesQuery();
+  const { data: supplies, isLoading: isLoadingSupplies } = useGetSuppliesQuery({
+    page: 0,
+  });
 
   return (
     <Row gutter={[0, 16]}>
