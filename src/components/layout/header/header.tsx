@@ -1,27 +1,51 @@
 import { useState } from 'react';
-import { Row, Col, Avatar, Input, Button, Drawer, Menu, Divider } from 'antd';
+import {
+  Row,
+  Col,
+  Avatar,
+  Input,
+  Button,
+  Drawer,
+  Menu,
+  Divider,
+  Typography,
+} from 'antd';
 import {
   AiOutlineUser,
   AiOutlineFileAdd,
   AiOutlineSearch,
   AiOutlineMenu,
+  AiOutlineLogout,
 } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 
-import { StyledHeader, StyledMenu, SecondaryButton } from './styled';
-import { MenuNotifications } from './notifications';
+import { MenuNotifications } from '../notifications';
 import { useMediaQuery } from 'react-responsive';
 import { theme } from 'src/theme';
 import { MENU_ITEMS } from './menu-items';
+import { useAppDispatch, useAppSelector } from 'src/hooks/store';
+import { logout, selectCurrentUser } from 'src/slices/auth';
+import { HeaderUserMenu } from './user-menu';
+
+import { StyledHeader, StyledMenu, SecondaryButton } from '../styled';
 
 export const Header = () => {
+  const dispatch = useAppDispatch();
+
   const isMobile = useMediaQuery({
     query: `(max-width: ${theme.breakpoints.sm}px)`,
   });
   const [mobileDrawer, setMobileDrawer] = useState(false);
 
+  const user = useAppSelector(selectCurrentUser);
+
   const onClose = () => {
     setMobileDrawer(false);
+  };
+
+  const onLogout = () => {
+    dispatch(logout());
+    onClose();
   };
 
   if (isMobile) {
@@ -73,18 +97,37 @@ export const Header = () => {
               />
             </Col>
             <Col flex="auto">
-              <Button type="primary" size="small">
-                Đăng nhập
-              </Button>
+              {user ? (
+                <Button type="primary" size="small">
+                  {user.lastName} {user.firstName}
+                </Button>
+              ) : (
+                <Link to="/login">
+                  <Button type="primary" size="small">
+                    Đăng nhập
+                  </Button>
+                </Link>
+              )}
             </Col>
           </Row>
           <Divider />
           <Menu>
-            {MENU_ITEMS.map(({ label, link, Icon }, index) => (
+            {MENU_ITEMS.filter(
+              ({ onlyUser }) => !onlyUser || (onlyUser && Boolean(user))
+            ).map(({ label, link, Icon }, index) => (
               <Menu.Item key={index} icon={Icon} onClick={onClose}>
                 <Link to={`${link}`}>{label}</Link>
               </Menu.Item>
             ))}
+            {user ? (
+              <Menu.Item
+                key="log-out"
+                icon={<AiOutlineLogout />}
+                onClick={onLogout}
+              >
+                <Typography.Text>Đăng xuất</Typography.Text>
+              </Menu.Item>
+            ) : null}
           </Menu>
         </Drawer>
       </>
@@ -108,15 +151,15 @@ export const Header = () => {
             </Col>
             <Col flex="auto">
               <StyledMenu mode="horizontal">
-                {MENU_ITEMS.map(({ label, link, Icon }, index) => (
+                {MENU_ITEMS.filter(
+                  ({ onlyUser }) => !onlyUser || (onlyUser && Boolean(user))
+                ).map(({ label, link, Icon }, index) => (
                   <StyledMenu.Item key={index} icon={Icon}>
                     <Link to={`${link}`}>{label}</Link>
                   </StyledMenu.Item>
                 ))}
-                <StyledMenu.Item key="user">
-                  <Avatar icon={<AiOutlineUser />} />
-                  <span style={{ marginLeft: '10px' }}>Đăng nhập</span>
-                </StyledMenu.Item>
+                <HeaderUserMenu />
+                
               </StyledMenu>
             </Col>
           </Row>
@@ -135,11 +178,13 @@ export const Header = () => {
               <MenuNotifications />
             </Col>
             <Col>
-              <SecondaryButton
-                icon={<AiOutlineFileAdd className="button-icon" />}
-              >
-                Đăng tin bán
-              </SecondaryButton>
+              <Link to={user ? '/post' : '/login'}>
+                <SecondaryButton
+                  icon={<AiOutlineFileAdd className="button-icon" />}
+                >
+                  Đăng tin bán
+                </SecondaryButton>
+              </Link>
             </Col>
           </Row>
         </Col>

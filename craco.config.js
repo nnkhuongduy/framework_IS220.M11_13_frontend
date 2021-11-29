@@ -12,6 +12,7 @@ module.exports = {
               'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
               'Noto Color Emoji'`,
               "@primary-color": "@purple-4",
+              "@border-radius-base": "8px"
             },
             javascriptEnabled: true,
           },

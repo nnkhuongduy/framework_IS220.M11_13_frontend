@@ -33,6 +33,11 @@ declare module 'styled-components' {
         dark: string;
         light: string;
       };
+      hover: {
+        gray: string;
+      };
     };
+
+    transition: string;
   }
 }

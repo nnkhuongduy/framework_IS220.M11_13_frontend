@@ -31,5 +31,9 @@ export const theme: DefaultTheme = {
       dark: '#001529',
       light: '#f0f2f5',
     },
+    hover: {
+      gray: 'rgba(60,90,100,.04)',
+    },
   },
+  transition: 'all .3s',
 };
