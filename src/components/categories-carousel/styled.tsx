@@ -43,3 +43,12 @@ export const StyledCarousel = styled(Carousel)`
     }
   }
 `;
+
+export const Image = styled.img`
+  margin: 0px auto;
+  width: 120px;
+  height: 120px;
+  border-radius: 100%;
+  margin-bottom: 10px;
+  object-fit: cover;
+`;

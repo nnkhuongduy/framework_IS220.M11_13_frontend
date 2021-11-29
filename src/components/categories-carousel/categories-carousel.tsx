@@ -1,12 +1,13 @@
 import { FC } from 'react';
-import { Col, Row } from 'antd';
+import { Col, Row, Typography } from 'antd';
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 import { chunk } from 'lodash';
+import { Link } from 'react-router-dom';
 
 import { Category } from 'src/models/category';
 import { useMediaQuery } from 'react-responsive';
 import { theme } from 'src/theme';
-import { StyledCarousel } from './styled';
+import { StyledCarousel, Image } from './styled';
 
 interface ArrowProps {
   type: 'left' | 'right';
@@ -45,17 +46,14 @@ export const CategoriesCarousel: FC<CategoriesCarouselProps> = ({
     >
       {chunk(categories, isXXsSmall ? 2 : isXsSmall ? 4 : 6).map(
         (cateChunk, i) => (
-          <div>
-            <Row key={i} gutter={16} wrap={false}>
+          <div key={i}>
+            <Row gutter={16} wrap={false}>
               {cateChunk.map((cate, j) => (
                 <Col key={j} span={isXXsSmall ? 12 : isXsSmall ? 6 : 4}>
-                  <img
-                    src={cate.image}
-                    alt={cate.name}
-                    width="80%"
-                    style={{ margin: '0 auto' }}
-                  />
-                  <span>{cate.name}</span>
+                  <Link to={`/category/${cate.slug}`}>
+                    <Image src={cate.image} alt={cate.name} />
+                    <Typography.Text>{cate.name}</Typography.Text>
+                  </Link>
                 </Col>
               ))}
             </Row>
