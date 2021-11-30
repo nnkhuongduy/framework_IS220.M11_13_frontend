@@ -1,8 +1,6 @@
-import { Location } from './location';
-
 export interface Post {
   name: string;
   price: number;
-  locations: Location[];
+  locations: { name: string }[];
   images: string[];
 }
