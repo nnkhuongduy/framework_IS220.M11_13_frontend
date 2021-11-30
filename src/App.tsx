@@ -8,6 +8,8 @@ import { SignupPage } from './pages/signup/signup';
 import { SignupStepTwoPage } from './pages/signup/step-two';
 import { VerifyingPage } from './pages/signup/verifying';
 import { VerificationPage } from './pages/verification';
+import { PostSupply } from './pages/post/post';
+import { SupplyPage } from './pages/supply/supply';
 
 import { Layout } from './components/layout/layout';
 import { PrivateRoute } from './components/private-route/private-route';
@@ -55,6 +57,9 @@ function App() {
           <PrivateRoute path="/signup/step-two" exact>
             <SignupStepTwoPage />
           </PrivateRoute>
+          <PrivateRoute path="/post" exact>
+            <PostSupply />
+          </PrivateRoute>
           <Route path="/login" exact>
             <LoginPage />
           </Route>
@@ -66,6 +71,9 @@ function App() {
           </Route>
           <Route path="/verification/:id" exact>
             <VerificationPage />
+          </Route>
+          <Route path="/supply/:id" exact>
+            <SupplyPage />
           </Route>
           <Route path="/" exact>
             <HomePage />
