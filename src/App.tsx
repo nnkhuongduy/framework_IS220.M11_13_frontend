@@ -11,6 +11,7 @@ import { VerificationPage } from './pages/verification';
 import { PostSupply } from './pages/post/post';
 import { SupplyPage } from './pages/supply/supply';
 import { ContactPage } from './pages/contact/contact';
+import { PostsManagementPage } from './pages/management/management';
 
 import { Layout } from './components/layout/layout';
 import { PrivateRoute } from './components/private-route/private-route';
@@ -70,6 +71,9 @@ function App() {
           </PrivateRoute>
           <PrivateRoute path="/contact/:id" exact>
             <ContactPage />
+          </PrivateRoute>
+          <PrivateRoute path="/management" exact>
+            <PostsManagementPage />
           </PrivateRoute>
           <Route path="/login" exact>
             <LoginPage />
