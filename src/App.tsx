@@ -10,6 +10,7 @@ import { VerifyingPage } from './pages/signup/verifying';
 import { VerificationPage } from './pages/verification';
 import { PostSupply } from './pages/post/post';
 import { SupplyPage } from './pages/supply/supply';
+import { ContactPage } from './pages/contact/contact';
 
 import { Layout } from './components/layout/layout';
 import { PrivateRoute } from './components/private-route/private-route';
@@ -19,16 +20,20 @@ import { GLOBAL_CONSTANTS } from './constants/global';
 import { useAppDispatch } from './hooks/store';
 import { setJwtToken, setAuthenticating } from './slices/auth';
 import { useHttpError } from './hooks/http';
+import { useChatHub } from './hooks/chathub';
 
 import './App.less';
 
 function App() {
+  const { start } = useChatHub();
   const dispatch = useAppDispatch();
   const httpError = useHttpError();
 
   const [authenticate, { error }] = useLazyAuthenticateQuery();
 
   useEffect(() => {
+    start();
+
     const storedToken = localStorage.getItem(
       GLOBAL_CONSTANTS.LOCAL_STORE_JWT_TOKEN
     );
@@ -59,6 +64,12 @@ function App() {
           </PrivateRoute>
           <PrivateRoute path="/post" exact>
             <PostSupply />
+          </PrivateRoute>
+          <PrivateRoute path="/contact/" exact>
+            <ContactPage />
+          </PrivateRoute>
+          <PrivateRoute path="/contact/:id" exact>
+            <ContactPage />
           </PrivateRoute>
           <Route path="/login" exact>
             <LoginPage />
