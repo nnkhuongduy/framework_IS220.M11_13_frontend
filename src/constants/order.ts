@@ -1,0 +1,3 @@
+export const ORDER_CONSTANTS = {
+  ORDER_CACHE_ID: 'ORDER_CACHE_ID',
+};
