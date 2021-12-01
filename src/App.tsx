@@ -60,9 +60,9 @@ function App() {
     <>
       <Layout>
         <Switch>
-          <PrivateRoute path="/signup/step-two" exact>
+          <Route path="/signup/step-two" exact>
             <SignupStepTwoPage />
-          </PrivateRoute>
+          </Route>
           <PrivateRoute path="/post" exact>
             <PostSupply />
           </PrivateRoute>
