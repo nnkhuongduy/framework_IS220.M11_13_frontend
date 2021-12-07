@@ -63,6 +63,8 @@ export interface PostSupplyStep<T = Record<string, any>> {
 
 export interface SupplyQueryParams {
   page: number;
+  categorySlug?: string;
+  queryText?: string;
 }
 
 export type SupplyWithSelected = Supply & {

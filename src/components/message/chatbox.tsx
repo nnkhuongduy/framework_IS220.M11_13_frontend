@@ -21,7 +21,7 @@ import { useHttpError } from 'src/hooks/http';
 import { ChatboxSectionMain } from './styled';
 
 export const ChatBox = () => {
-  const { connection } = useChatHub();
+  const { start, connection } = useChatHub();
   const { id: chatId } = useParams<{ id: string }>();
   const currentUser = useAppSelector(selectCurrentUser);
   const httpError = useHttpError();
@@ -34,6 +34,11 @@ export const ChatBox = () => {
   const [_chat, _setChat] = useState<Chat>();
   const [_newMessage, _setNewMessage] = useState<ChatMessage>();
   const [dialogVisible, setDialogVisible] = useState(false);
+
+  useEffect(() => {
+    start();
+    //eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     const disconnectCallback = () => {

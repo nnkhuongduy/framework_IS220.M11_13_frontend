@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import { NotFoundPage } from './pages/404/404';
 import { HomePage } from './pages/home/home';
@@ -12,6 +12,8 @@ import { PostSupply } from './pages/post/post';
 import { SupplyPage } from './pages/supply/supply';
 import { ContactPage } from './pages/contact/contact';
 import { PostsManagementPage } from './pages/management/management';
+import { CategoryPage } from './pages/category/category';
+import { QueryPage } from './pages/query/query';
 
 import { Layout } from './components/layout/layout';
 import { PrivateRoute } from './components/private-route/private-route';
@@ -21,20 +23,16 @@ import { GLOBAL_CONSTANTS } from './constants/global';
 import { useAppDispatch } from './hooks/store';
 import { setJwtToken, setAuthenticating } from './slices/auth';
 import { useHttpError } from './hooks/http';
-import { useChatHub } from './hooks/chathub';
 
 import './App.less';
 
 function App() {
-  const { start } = useChatHub();
   const dispatch = useAppDispatch();
   const httpError = useHttpError();
 
   const [authenticate, { error }] = useLazyAuthenticateQuery();
 
   useEffect(() => {
-    start();
-
     const storedToken = localStorage.getItem(
       GLOBAL_CONSTANTS.LOCAL_STORE_JWT_TOKEN
     );
@@ -89,6 +87,15 @@ function App() {
           </Route>
           <Route path="/supply/:id" exact>
             <SupplyPage />
+          </Route>
+          <Route path="/category/:slug" exact>
+            <CategoryPage />
+          </Route>
+          <Route path="/query" exact>
+            <Redirect to="/" />
+          </Route>
+          <Route path="/query/:query" exact>
+            <QueryPage />
           </Route>
           <Route path="/" exact>
             <HomePage />

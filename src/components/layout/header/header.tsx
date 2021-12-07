@@ -17,7 +17,7 @@ import {
   AiOutlineMenu,
   AiOutlineLogout,
 } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 
 import { MenuNotifications } from '../notifications';
 import { useMediaQuery } from 'react-responsive';
@@ -31,6 +31,8 @@ import { StyledHeader, StyledMenu, SecondaryButton } from '../styled';
 
 export const Header = () => {
   const dispatch = useAppDispatch();
+  const history = useHistory();
+  const { query } = useParams<{ query: string }>();
 
   const isMobile = useMediaQuery({
     query: `(max-width: ${theme.breakpoints.sm}px)`,
@@ -46,6 +48,10 @@ export const Header = () => {
   const onLogout = () => {
     dispatch(logout());
     onClose();
+  };
+
+  const onSearch = (query: string) => {
+    history.push(`/query/${query}`);
   };
 
   if (isMobile) {
@@ -80,10 +86,12 @@ export const Header = () => {
             </Col>
             <Col span={24}>
               <Input.Search
-                placeholder="Ô tô giá rẻ HCM"
+                placeholder="Ô tô giá rẻ"
                 enterButton="Tìm kiếm"
                 size="large"
+                defaultValue={query || ''}
                 prefix={<AiOutlineSearch />}
+                onSearch={onSearch}
               />
             </Col>
           </Row>
@@ -159,7 +167,6 @@ export const Header = () => {
                   </StyledMenu.Item>
                 ))}
                 <HeaderUserMenu />
-                
               </StyledMenu>
             </Col>
           </Row>
@@ -168,10 +175,12 @@ export const Header = () => {
           <Row gutter={16}>
             <Col flex="auto">
               <Input.Search
-                placeholder="Ô tô giá rẻ HCM"
+                placeholder="Ô tô giá rẻ"
                 enterButton="Tìm kiếm"
                 size="large"
                 prefix={<AiOutlineSearch />}
+                defaultValue={query || ''}
+                onSearch={onSearch}
               />
             </Col>
             <Col>
