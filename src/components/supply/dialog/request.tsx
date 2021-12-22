@@ -26,8 +26,8 @@ export const RequestPaymentModal: FC<Props> = ({
     <Modal
       visible={visible}
       onCancel={onCancel}
-      cancelText="Trở về"
-      okText="Gửi"
+      cancelText='Trở về'
+      okText='Gửi'
       onOk={() => onSubmit(selected!)}
       okButtonProps={{ disabled: !selected }}
       width={1000}

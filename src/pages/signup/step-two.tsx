@@ -82,19 +82,19 @@ export const SignupStepTwoPage = () => {
   };
 
   return (
-    <Row align="middle" justify="center" style={{ margin: '32px 0' }}>
+    <Row align='middle' justify='center' style={{ margin: '32px 0' }}>
       <Col span={24} style={{ textAlign: 'center' }}>
         <img
-          src="/assets/images/Logo-Primarycolor.png"
-          alt="logo"
-          width="150px"
+          src='/assets/images/Logo-Primarycolor.png'
+          alt='logo'
+          width='150px'
           style={{ marginBottom: '16px' }}
         />
       </Col>
       <Col span={24}>
-        <SignupBox className="page-layout-spacing">
+        <SignupBox className='page-layout-spacing'>
           <h1>Hoàn tất đăng ký</h1>
-          <p className="subtitle">
+          <p className='subtitle'>
             Chào mừng bạn đến với 99Phầntrăm. Xin bạn vui lòng điền các thông
             tin sau để 99Phầntrăm có thể cung cấp cho bạn trải nghiệm và dịch vụ
             tốt nhất!
@@ -103,7 +103,7 @@ export const SignupStepTwoPage = () => {
           <Form
             form={form}
             labelCol={{ span: 0 }}
-            size="large"
+            size='large'
             requiredMark={false}
             onFinish={onFinish}
           >
@@ -111,7 +111,7 @@ export const SignupStepTwoPage = () => {
               <b>Thông tin cá nhân:</b>
             </p>
             <Form.Item
-              name="phoneNumber"
+              name='phoneNumber'
               rules={[
                 { required: true, message: 'Vui lòng nhập số điện thoại!' },
                 {
@@ -122,16 +122,16 @@ export const SignupStepTwoPage = () => {
                 { max: 12, message: 'SĐT tối đa 12 ký tự' },
               ]}
             >
-              <Input placeholder="Số điện thoại" />
+              <Input placeholder='Số điện thoại' />
             </Form.Item>
             <Form.Item
-              name="province"
+              name='province'
               rules={[
                 { required: true, message: 'Vui lòng chọn tỉnh/ thành phố!' },
               ]}
             >
               <Select
-                placeholder="Chọn tỉnh/ thành phố"
+                placeholder='Chọn tỉnh/ thành phố'
                 loading={loadingProvinces}
                 onChange={(value) => setProvinceId(value as string)}
               >
@@ -143,7 +143,7 @@ export const SignupStepTwoPage = () => {
               </Select>
             </Form.Item>
             <Form.Item
-              name="ward"
+              name='ward'
               rules={[
                 {
                   required: true,
@@ -152,7 +152,7 @@ export const SignupStepTwoPage = () => {
               ]}
             >
               <Select
-                placeholder="Chọn quận/ huyện/ thị xã"
+                placeholder='Chọn quận/ huyện/ thị xã'
                 loading={loadingWards}
                 disabled={!Boolean(provinceId)}
                 onChange={(value) => setWardId(value as string)}
@@ -165,7 +165,7 @@ export const SignupStepTwoPage = () => {
               </Select>
             </Form.Item>
             <Form.Item
-              name="block"
+              name='block'
               rules={[
                 {
                   required: true,
@@ -174,7 +174,7 @@ export const SignupStepTwoPage = () => {
               ]}
             >
               <Select
-                placeholder="Chọn phường/ thị xã/ thị trấn"
+                placeholder='Chọn phường/ thị xã/ thị trấn'
                 loading={loadingBlocks}
                 disabled={!Boolean(wardId)}
               >
@@ -186,15 +186,15 @@ export const SignupStepTwoPage = () => {
               </Select>
             </Form.Item>
             <Form.Item
-              name="address"
+              name='address'
               rules={[{ required: true, message: 'Vui lòng nhập địa chỉ!' }]}
             >
-              <Input placeholder="Địa chỉ" />
+              <Input placeholder='Địa chỉ' />
             </Form.Item>
             <Form.Item>
               <Button
-                type="primary"
-                htmlType="submit"
+                type='primary'
+                htmlType='submit'
                 style={{ width: '100%' }}
                 loading={isUpdating || isAuthenticating}
               >

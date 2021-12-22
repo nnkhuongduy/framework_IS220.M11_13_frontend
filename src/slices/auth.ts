@@ -37,7 +37,23 @@ const authSlice = createSlice({
     builder.addMatcher(
       authApi.endpoints.login.matchFulfilled,
       (state, { payload }) => {
-        state.identifier = payload.identifier;
+        state.identifier = {
+          ...payload.identifier,
+          id: payload.identifier._id || payload.identifier.id,
+          createdOn:
+            payload.identifier.createdAt || payload.identifier.createdOn,
+          modifiedOn:
+            payload.identifier.updatedAt || payload.identifier.modifiedOn,
+          locationBlockRef: payload.identifier.locationBlockRef || {
+            id: payload.identifier.locationBlock,
+          },
+          locationWardRef: payload.identifier.locationWardRef || {
+            id: payload.identifier.locationWard,
+          },
+          locationProvinceRef: payload.identifier.locationProvinceRef || {
+            id: payload.identifier.locationProvince,
+          },
+        };
         state.token = payload.token;
         state.authenticating = false;
       }
@@ -48,7 +64,21 @@ const authSlice = createSlice({
     builder.addMatcher(
       authApi.endpoints.authenticate.matchFulfilled,
       (state, { payload }) => {
-        state.identifier = payload;
+        state.identifier = {
+          ...payload,
+          id: payload._id || payload.id,
+          createdOn: payload.createdAt || payload.createdOn,
+          modifiedOn: payload.updatedAt || payload.modifiedOn,
+          locationBlockRef: payload.locationBlockRef || {
+            id: payload.locationBlock,
+          },
+          locationWardRef: payload.locationWardRef || {
+            id: payload.locationWard,
+          },
+          locationProvinceRef: payload.locationProvinceRef || {
+            id: payload.locationProvince,
+          },
+        };
         state.authenticating = false;
       }
     );

@@ -20,14 +20,16 @@ export const CategoryPage = () => {
     <Row gutter={[0, 16]}>
       <Col span={24}>
         <Carousel autoplay>
-          <img src="/assets/images/banner.png" alt="banner" />
-          <img src="/assets/images/banner.png" alt="banner" />
-          <img src="/assets/images/banner.png" alt="banner" />
-          <img src="/assets/images/banner.png" alt="banner" />
+          <img src='/assets/images/banner.png' alt='banner' />
+          <img src='/assets/images/banner.png' alt='banner' />
+          <img src='/assets/images/banner.png' alt='banner' />
+          <img src='/assets/images/banner.png' alt='banner' />
         </Carousel>
       </Col>
       <StyledCol>
-        <h1>DANH MỤC SẢN PHẨM {(category || { name: '' }).name.toUpperCase()}</h1>
+        <h1>
+          DANH MỤC SẢN PHẨM {(category || { name: '' }).name.toUpperCase()}
+        </h1>
         <p>Cơ hội tìm kiếm trong hàng ngàn sản phẩm tại 99phantram.com</p>
         <CategoriesCarousel categories={categories || []} loading={isLoading} />
       </StyledCol>

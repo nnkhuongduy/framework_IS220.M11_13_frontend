@@ -25,6 +25,7 @@ export enum SupplyStatusText {
 }
 
 export interface Supply {
+  _id?: string;
   id: string;
   owner: User;
   name: string;
@@ -41,6 +42,8 @@ export interface Supply {
   status: SupplyStatus;
   createdOn: string;
   modifiedOn: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface PostSupply {
@@ -53,6 +56,7 @@ export interface PostSupply {
   categories: string[];
   locations: string[];
   address: string;
+  productStatus: number;
 }
 
 export interface PostSupplyStep<T = Record<string, any>> {

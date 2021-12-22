@@ -14,10 +14,10 @@ export const HomePage = () => {
     <Row gutter={[0, 16]}>
       <Col span={24}>
         <Carousel autoplay>
-          <img src="/assets/images/banner.png" alt="banner" />
-          <img src="/assets/images/banner.png" alt="banner" />
-          <img src="/assets/images/banner.png" alt="banner" />
-          <img src="/assets/images/banner.png" alt="banner" />
+          <img src='/assets/images/banner.png' alt='banner' />
+          <img src='/assets/images/banner.png' alt='banner' />
+          <img src='/assets/images/banner.png' alt='banner' />
+          <img src='/assets/images/banner.png' alt='banner' />
         </Carousel>
       </Col>
       <StyledCol>

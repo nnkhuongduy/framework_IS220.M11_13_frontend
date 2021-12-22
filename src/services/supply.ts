@@ -4,7 +4,7 @@ import { _99phantramApi } from 'src/slices/api';
 import { PostSupply, Supply, SupplyQueryParams } from 'src/models/supply';
 import { SUPPLY_CONSTANTS } from 'src/constants/supply';
 
-export const locationApi = _99phantramApi.injectEndpoints({
+export const supplyApi = _99phantramApi.injectEndpoints({
   endpoints: (build) => ({
     createSupply: build.mutation<void, PostSupply>({
       query: (form) => ({
@@ -41,4 +41,4 @@ export const {
   useGetSupplyQuery,
   useGetOwnSuppliesQuery,
   useLazyGetSuppliesQuery,
-} = locationApi;
+} = supplyApi;
