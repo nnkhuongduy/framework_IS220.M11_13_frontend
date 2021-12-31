@@ -8,20 +8,17 @@ const connection = new signalR.HubConnectionBuilder()
 
 const start = async () => {
   try {
-    await connection.start();
+    if (connection.state === 'Disconnected') {
+      await connection.start();
+    }
   } catch (error) {
     console.log(error);
-    setTimeout(start, 5000);
   }
 };
-
-connection.onclose(async () => {
-  await start();
-});
 
 export const useChatHub = () => {
   return {
     start,
-    connection
-  }
+    connection,
+  };
 };

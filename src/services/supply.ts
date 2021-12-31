@@ -1,8 +1,10 @@
+import { omitBy, isNil } from 'lodash';
+
 import { _99phantramApi } from 'src/slices/api';
 import { PostSupply, Supply, SupplyQueryParams } from 'src/models/supply';
 import { SUPPLY_CONSTANTS } from 'src/constants/supply';
 
-export const locationApi = _99phantramApi.injectEndpoints({
+export const supplyApi = _99phantramApi.injectEndpoints({
   endpoints: (build) => ({
     createSupply: build.mutation<void, PostSupply>({
       query: (form) => ({
@@ -15,7 +17,7 @@ export const locationApi = _99phantramApi.injectEndpoints({
     getSupplies: build.query<Supply[], SupplyQueryParams>({
       query: (params) => ({
         url: '/supply',
-        params,
+        params: omitBy(params, isNil),
       }),
       providesTags: [{ type: SUPPLY_CONSTANTS.SUPPLY_CACHE_ID, id: 'ALL' }],
     }),
@@ -27,10 +29,8 @@ export const locationApi = _99phantramApi.injectEndpoints({
     }),
     getOwnSupplies: build.query<Supply[], void>({
       query: () => '/supply/management',
-      providesTags: [
-        { type: SUPPLY_CONSTANTS.SUPPLY_CACHE_ID, id: 'OWN' },
-      ],
-    }),
+      providesTags: [{ type: SUPPLY_CONSTANTS.SUPPLY_CACHE_ID, id: 'OWN' }],
+    })
   }),
   overrideExisting: true,
 });
@@ -40,4 +40,5 @@ export const {
   useGetSuppliesQuery,
   useGetSupplyQuery,
   useGetOwnSuppliesQuery,
-} = locationApi;
+  useLazyGetSuppliesQuery,
+} = supplyApi;

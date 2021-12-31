@@ -43,16 +43,16 @@ export const PostsManagementPage = () => {
     >
       <Row gutter={16}>
         <ManagementMain xs={12} sm={8}>
-          <div className="col-content">
+          <div className='col-content'>
             <ActionBox />
           </div>
         </ManagementMain>
         <ManagementMain xs={12} sm={16}>
-          <div className="col-content">
+          <div className='col-content'>
             <Row>
               <Col span={24}>
                 <Input.Search
-                  placeholder="Tìm kiếm tin"
+                  placeholder='Tìm kiếm tin'
                   allowClear
                   onChange={(event) => onSearch(event.target.value)}
                   style={{ width: '100%' }}

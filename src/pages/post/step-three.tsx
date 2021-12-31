@@ -97,9 +97,9 @@ export const StepThree = () => {
       {prefetched ? (
         <StepThreeForm
           form={form}
-          layout="vertical"
+          layout='vertical'
           requiredMark={false}
-          size="large"
+          size='large'
           onFinish={onFinish}
           initialValues={{
             province: user?.locationProvinceRef.id,
@@ -109,13 +109,13 @@ export const StepThree = () => {
           }}
         >
           <Form.Item
-            name="province"
+            name='province'
             rules={[
               { required: true, message: 'Vui lòng chọn tỉnh/ thành phố!' },
             ]}
           >
             <Select
-              placeholder="Chọn tỉnh/ thành phố"
+              placeholder='Chọn tỉnh/ thành phố'
               loading={loadingProvinces}
               onChange={(value) => setProvinceId(value as string)}
             >
@@ -127,7 +127,7 @@ export const StepThree = () => {
             </Select>
           </Form.Item>
           <Form.Item
-            name="ward"
+            name='ward'
             rules={[
               {
                 required: true,
@@ -136,7 +136,7 @@ export const StepThree = () => {
             ]}
           >
             <Select
-              placeholder="Chọn quận/ huyện/ thị xã"
+              placeholder='Chọn quận/ huyện/ thị xã'
               loading={loadingWards}
               disabled={!Boolean(provinceId)}
               onChange={(value) => setWardId(value as string)}
@@ -149,7 +149,7 @@ export const StepThree = () => {
             </Select>
           </Form.Item>
           <Form.Item
-            name="block"
+            name='block'
             rules={[
               {
                 required: true,
@@ -158,7 +158,7 @@ export const StepThree = () => {
             ]}
           >
             <Select
-              placeholder="Chọn phường/ thị xã/ thị trấn"
+              placeholder='Chọn phường/ thị xã/ thị trấn'
               loading={loadingBlocks}
               disabled={!Boolean(wardId)}
             >
@@ -170,20 +170,20 @@ export const StepThree = () => {
             </Select>
           </Form.Item>
           <Form.Item
-            name="address"
+            name='address'
             rules={[{ required: true, message: 'Vui lòng nhập địa chỉ!' }]}
           >
-            <Input placeholder="Địa chỉ" />
+            <Input placeholder='Địa chỉ' />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
+            <Button type='primary' htmlType='submit' style={{ width: '100%' }}>
               Tiếp tục
             </Button>
           </Form.Item>
         </StepThreeForm>
       ) : (
         <div style={{ textAlign: 'center' }}>
-          <Spin size="large" />
+          <Spin size='large' />
         </div>
       )}
     </>

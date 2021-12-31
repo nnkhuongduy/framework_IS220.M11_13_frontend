@@ -24,8 +24,11 @@ export interface User {
   firstName: string;
   lastName: string;
   locationBlockRef: { id: string };
+  locationBlock?: string;
   locationProvinceRef: { id: string };
+  locationProvince?: string;
   locationWardRef: { id: string };
+  locationWard?: string;
   sex: Gender;
   address?: string;
   phoneNumber?: string;
@@ -36,6 +39,9 @@ export interface User {
   status: UserStatus;
   createdOn: string;
   modifiedOn: string;
+  _id?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export type UserSnapshot = Pick<

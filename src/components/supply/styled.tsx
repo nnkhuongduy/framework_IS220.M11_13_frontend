@@ -84,7 +84,7 @@ export const CheckboxContainer = styled.div`
 `;
 
 export const RequestModalContent = styled.div`
-  max-height: 80vh;
+  max-height: 65vh;
   padding: 20px 0;
   overflow: hidden;
   overflow-y: auto;

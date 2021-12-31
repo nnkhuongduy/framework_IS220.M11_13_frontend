@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Col, Divider, Avatar, Skeleton, Typography, Row, Button } from 'antd';
 import { useParams } from 'react-router-dom';
+import { io, Socket } from 'socket.io-client';
 
 import {
   useConnectChatMutation,
@@ -21,7 +22,7 @@ import { useHttpError } from 'src/hooks/http';
 import { ChatboxSectionMain } from './styled';
 
 export const ChatBox = () => {
-  const { connection } = useChatHub();
+  const { start, connection } = useChatHub();
   const { id: chatId } = useParams<{ id: string }>();
   const currentUser = useAppSelector(selectCurrentUser);
   const httpError = useHttpError();
@@ -34,37 +35,75 @@ export const ChatBox = () => {
   const [_chat, _setChat] = useState<Chat>();
   const [_newMessage, _setNewMessage] = useState<ChatMessage>();
   const [dialogVisible, setDialogVisible] = useState(false);
+  const [socket, setSocket] = useState<Socket>();
 
   useEffect(() => {
-    const disconnectCallback = () => {
-      disconnect(chatId);
-
-      connection.invoke('LeaveGroup', chatId);
-    };
-
-    if (chatId) {
-      connect(chatId).then(() => {
-        connection.invoke('JoinGroup', chatId);
-
-        connection.on('ReceiveMessage', (message: ChatMessage) =>
-          _setNewMessage(message)
-        );
+    if (process.env.REACT_APP_BACKEND_FRAMEWORK === 'DOTNET') {
+      start();
+    } else {
+      const socket = io(process.env.REACT_APP_API_ENDPOINT as string, {
+        autoConnect: false,
       });
 
-      window.addEventListener('unload', disconnectCallback);
-    }
+      socket.onAny((event: any, ...args: any[]) => {
+        console.log(event, args);
+      });
 
-    return () => {
-      if (chatId) {
+      socket.on('chats', (chats: any) => {
+        console.log(chats);
+      });
+
+      socket.emit('chat-connect', { test: 'test' }, (das: any) =>
+        console.log(das)
+      );
+      socket.on('chat-connect', (test: any) => console.log(test));
+
+      socket.connect();
+
+      setSocket(socket);
+    }
+    //eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    if (process.env.REACT_APP_BACKEND_FRAMEWORK === 'DOTNET') {
+      const disconnectCallback = () => {
         disconnect(chatId);
 
         connection.invoke('LeaveGroup', chatId);
+      };
 
-        window.removeEventListener('unload', disconnectCallback);
+      if (chatId) {
+        connect(chatId).then(() => {
+          connection.invoke('JoinGroup', chatId);
+
+          connection.on('ReceiveMessage', (message: ChatMessage) =>
+            _setNewMessage(message)
+          );
+        });
+
+        window.addEventListener('unload', disconnectCallback);
       }
-    };
+
+      return () => {
+        if (chatId) {
+          disconnect(chatId);
+
+          connection.invoke('LeaveGroup', chatId);
+
+          window.removeEventListener('unload', disconnectCallback);
+        }
+      };
+    }
     //eslint-disable-next-line
   }, [chatId]);
+
+  useEffect(() => {
+    if (socket && chatId) {
+      connect(chatId).then(() => {});
+    }
+    //eslint-disable-next-line
+  }, [socket, chatId]);
 
   useEffect(() => {
     _setChat(chat);
@@ -119,7 +158,7 @@ export const ChatBox = () => {
         <ChatboxSectionMain>
           <Row style={{ flexDirection: 'column', height: '100%' }}>
             <Col>
-              <Row align="middle" justify="space-between">
+              <Row align='middle' justify='space-between'>
                 <Col>
                   <Avatar src={oppositeUser!.avatar}>
                     {oppositeUser!.firstName[0]}
@@ -130,7 +169,7 @@ export const ChatBox = () => {
                 </Col>
                 <Col>
                   <Button
-                    type="primary"
+                    type='primary'
                     onClick={() => setDialogVisible(true)}
                     disabled={isCreatingOrder}
                   >
@@ -140,7 +179,7 @@ export const ChatBox = () => {
               </Row>
             </Col>
             <Divider />
-            <Col flex="auto">
+            <Col flex='auto'>
               <MessageList chat={_chat} />
             </Col>
             <Divider />

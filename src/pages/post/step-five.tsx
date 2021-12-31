@@ -146,6 +146,7 @@ export const StepFive = () => {
           steps[2].content.block,
         ],
         address: steps[2].content.address as string,
+        productStatus: steps[3].content.productStatus,
       };
 
       await createSuppy(form).unwrap();
@@ -160,7 +161,7 @@ export const StepFive = () => {
 
   return (
     <>
-      <Row align="middle" gutter={[16, 16]}>
+      <Row align='middle' gutter={[16, 16]}>
         <Col span={24} style={{ textAlign: 'center' }}>
           <Row>
             <Col>
@@ -168,18 +169,18 @@ export const StepFive = () => {
                 Quay lại
               </Button>
             </Col>
-            <Col flex="auto">
+            <Col flex='auto'>
               <Radio.Group
                 value={mode}
                 onChange={(event) => setMode(event.target.value as Mode)}
               >
-                <Radio.Button value="DETAIL">Chi tiết</Radio.Button>
-                <Radio.Button value="CARD">Tổng quát</Radio.Button>
+                <Radio.Button value='DETAIL'>Chi tiết</Radio.Button>
+                <Radio.Button value='CARD'>Tổng quát</Radio.Button>
               </Radio.Group>
             </Col>
             <Col>
               <Button
-                type="primary"
+                type='primary'
                 onClick={() => setConfirmationVisible(true)}
               >
                 Đăng
@@ -202,7 +203,7 @@ export const StepFive = () => {
         </Col>
       </Row>
       <Modal
-        title="Xác nhận"
+        title='Xác nhận'
         visible={confirmationVisible}
         onOk={onPostSupply}
         onCancel={() => setConfirmationVisible(false)}
@@ -211,8 +212,8 @@ export const StepFive = () => {
         confirmLoading={
           isUploadingThumbnail || isUploadingImages || isCreatingSupply
         }
-        okText="Xác nhận"
-        cancelText="Hủy"
+        okText='Xác nhận'
+        cancelText='Hủy'
       >
         <Typography.Paragraph>
           Xác nhận thông tin đã cung cấp và đăng sản phẩm lên 99Phầntrăm?

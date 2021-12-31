@@ -12,6 +12,7 @@ export enum CategoryStatus {
 }
 
 export interface Category {
+  _id?: string;
   id: string;
   name: string;
   image: string;

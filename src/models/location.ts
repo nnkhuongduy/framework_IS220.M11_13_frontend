@@ -11,6 +11,7 @@ export enum LocationStatus {
 }
 
 export interface Location {
+  _id?: string;
   id: string;
   name: string;
   locationLevel: LocationLevel;

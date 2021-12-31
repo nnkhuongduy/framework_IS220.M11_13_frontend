@@ -20,7 +20,7 @@ export const ContactList = () => {
           <Link to={`/contact/${id}`}>
             <ChatListItem>
               <List.Item.Meta
-                avatar={<Avatar src={user.avatar}>{user.firstName[0]}</Avatar>}
+                avatar={<Avatar src={user.avatar || ''}>{user.firstName[0]}</Avatar>}
                 title={`${user.lastName} ${user.firstName}`}
                 // description={truncate(lastMessage.content, { length: 50 })}
               />

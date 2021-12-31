@@ -28,13 +28,13 @@ export const StepTwo = () => {
       dataSource={secondaryCategories || []}
       renderItem={(item) => (
         <List.Item>
-          <Row style={{ width: '100%' }} align="middle" gutter={8}>
-            <Col flex="auto">{item.name}</Col>
+          <Row style={{ width: '100%' }} align='middle' gutter={8}>
+            <Col flex='auto'>{item.name}</Col>
             <Col>
               <Button
                 icon={
                   <AiOutlineArrowRight
-                    className="button-icon"
+                    className='button-icon'
                     style={{ marginRight: 0 }}
                   />
                 }

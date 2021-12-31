@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Col, Row, Typography } from 'antd';
+import { Col, Row, Typography, Spin } from 'antd';
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 import { chunk } from 'lodash';
 import { Link } from 'react-router-dom';
@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { Category } from 'src/models/category';
 import { useMediaQuery } from 'react-responsive';
 import { theme } from 'src/theme';
+
 import { StyledCarousel, Image } from './styled';
 
 interface ArrowProps {
@@ -15,8 +16,9 @@ interface ArrowProps {
   onClick?: () => void;
 }
 
-interface CategoriesCarouselProps {
+interface Props {
   categories: Category[];
+  loading: boolean;
 }
 
 const Arrow: FC<ArrowProps> = ({ type, className, onClick }) => {
@@ -27,15 +29,17 @@ const Arrow: FC<ArrowProps> = ({ type, className, onClick }) => {
   );
 };
 
-export const CategoriesCarousel: FC<CategoriesCarouselProps> = ({
-  categories,
-}) => {
+export const CategoriesCarousel: FC<Props> = ({ categories, loading }) => {
   const isXsSmall = useMediaQuery({
     query: `(max-width: ${theme.breakpoints.xs}px)`,
   });
   const isXXsSmall = useMediaQuery({
     query: `(max-width: ${theme.breakpoints.xxs}px)`,
   });
+
+  if (loading) {
+    return <Spin size="large" />;
+  }
 
   return (
     <StyledCarousel

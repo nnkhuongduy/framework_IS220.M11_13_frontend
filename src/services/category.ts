@@ -8,10 +8,16 @@ export const categoryApi = _99phantramApi.injectEndpoints({
     }),
     getSecondaryCategories: build.query<Category[], string>({
       query: (id) => `/category/secondary/${id}`,
-    })
+    }),
+    getCategory: build.query<Category, string>({
+      query: (idOrSlug) => `/category/detail/${idOrSlug}`,
+    }),
   }),
   overrideExisting: true,
 });
 
-export const { useGetPrimaryCategoriesQuery, useGetSecondaryCategoriesQuery } =
-  categoryApi;
+export const {
+  useGetPrimaryCategoriesQuery,
+  useGetSecondaryCategoriesQuery,
+  useGetCategoryQuery,
+} = categoryApi;
