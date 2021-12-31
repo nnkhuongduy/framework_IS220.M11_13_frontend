@@ -38,63 +38,38 @@ export const ChatBox = () => {
   const [socket, setSocket] = useState<Socket>();
 
   useEffect(() => {
-    if (process.env.REACT_APP_BACKEND_FRAMEWORK === 'DOTNET') {
-      start();
-    } else {
-      const socket = io(process.env.REACT_APP_API_ENDPOINT as string, {
-        autoConnect: false,
-      });
-
-      socket.onAny((event: any, ...args: any[]) => {
-        console.log(event, args);
-      });
-
-      socket.on('chats', (chats: any) => {
-        console.log(chats);
-      });
-
-      socket.emit('chat-connect', { test: 'test' }, (das: any) =>
-        console.log(das)
-      );
-      socket.on('chat-connect', (test: any) => console.log(test));
-
-      socket.connect();
-
-      setSocket(socket);
-    }
+    start();
     //eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    if (process.env.REACT_APP_BACKEND_FRAMEWORK === 'DOTNET') {
-      const disconnectCallback = () => {
+    const disconnectCallback = () => {
+      disconnect(chatId);
+
+      connection.invoke('LeaveGroup', chatId);
+    };
+
+    if (chatId) {
+      connect(chatId).then(() => {
+        connection.invoke('JoinGroup', chatId);
+
+        connection.on('ReceiveMessage', (message: ChatMessage) =>
+          _setNewMessage(message)
+        );
+      });
+
+      window.addEventListener('unload', disconnectCallback);
+    }
+
+    return () => {
+      if (chatId) {
         disconnect(chatId);
 
         connection.invoke('LeaveGroup', chatId);
-      };
 
-      if (chatId) {
-        connect(chatId).then(() => {
-          connection.invoke('JoinGroup', chatId);
-
-          connection.on('ReceiveMessage', (message: ChatMessage) =>
-            _setNewMessage(message)
-          );
-        });
-
-        window.addEventListener('unload', disconnectCallback);
+        window.removeEventListener('unload', disconnectCallback);
       }
-
-      return () => {
-        if (chatId) {
-          disconnect(chatId);
-
-          connection.invoke('LeaveGroup', chatId);
-
-          window.removeEventListener('unload', disconnectCallback);
-        }
-      };
-    }
+    };
     //eslint-disable-next-line
   }, [chatId]);
 
